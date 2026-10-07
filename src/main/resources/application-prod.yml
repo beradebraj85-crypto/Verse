@@ -1,23 +1,21 @@
-# Database configurations
+# Production configuration for Supabase PostgreSQL and Railway / Cloud deployment
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5434}/${DB_NAME:verse_db}
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT:5432}/${DB_NAME:postgres}?sslmode=require
     username: ${DB_USER:postgres}
-    password: ${DB_PASSWORD:postgres}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
+    show-sql: false
 
   # AI LLM (OpenAI / Lightning AI / Groq) & Vector Store configurations
   ai:
     openai:
       base-url: ${OPENAI_BASE_URL:https://api.openai.com/v1}
-      api-key: ${OPENAI_API_KEY:demo-key}
+      api-key: ${OPENAI_API_KEY}
       chat:
         options:
           model: ${OPENAI_CHAT_MODEL:gpt-4o-mini}
@@ -37,7 +35,6 @@ spring:
       max-file-size: 25MB
       max-request-size: 50MB
 
-# App configurations
 app:
   rag:
     chunk-size: 700
@@ -45,20 +42,15 @@ app:
     similarity-threshold: 0.0
 
   cors:
-    allowed-origins: "*"
+    allowed-origins: ${ALLOWED_ORIGINS:https://your-frontend.vercel.app}
     allowed-methods: GET,POST,PUT,DELETE,OPTIONS
     allowed-headers: "*"
 
-# JWT configurations
 jwt:
-  secret: ${JWT_SECRET:sdafasfasfasdhfojhascapfdaDHAfbashfabfashfasbfshfdasfhqf}
+  secret: ${JWT_SECRET}
   expiration: 86400000
 
 logging:
   level:
-    org:
-      springframework:
-        ai:
-          chat:
-            client:
-              advisor: DEBUG
+    root: INFO
+    com.debraj.verse: INFO
