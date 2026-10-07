@@ -1,0 +1,32 @@
+# Dependencies & Build Artifacts
+node_modules/
+**/node_modules/
+target/
+**/target/
+dist/
+**/dist/
+build/
+**/build/
+.mvn/wrapper/maven-wrapper.jar
+
+# Version Control & IDEs
+.git/
+.idea/
+.vscode/
+
+# Logs & Large Binaries
+*.log
+*.jar
+*.war
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdf
+
+# Environment Files & Secrets
+.env*
+
+# Database Data Directories
+ytpgdata/
+*.sqlite
